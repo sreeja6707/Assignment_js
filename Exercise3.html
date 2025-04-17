@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>List Highlight Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      padding: 8px;
+      margin-bottom: 5px;
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    .highlight {
+      background-color: #ffe08a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>LIST</h2>
+  <ul id="myList">
+
+    <li>SREEHASA</li>
+    <li>NIVEDITHA</li>
+    <li>Mk REVAN</li>
+    <li>KALIX JACE</li>
+    <li>LOUIS NATASHA VALERIA</li>
+    
+  </ul>
+
+  <script>
+    const listItems = document.querySelectorAll('#myList li');
+    console.log("All list items:", listItems); 
+
+    listItems.forEach((item, index) => {
+      console.log(`Item ${index + 1}:`, item.textContent);
+    });
+
+    listItems.forEach((item, index) => {
+      if ((index + 1) % 2 === 0) {
+        item.classList.add('highlight');
+      }
+    });
+
+    console.log("Total number of list items:", listItems.length);
+  </script>
+
+</body>
+</html>

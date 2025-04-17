@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f9f9f9;
+    }
+    input, button {
+      font-size: 16px;
+      padding: 8px;
+      margin: 10px 0;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Palindrome Checker</h2>
+  <input type="text" id="inputString" placeholder="Enter a string..." />
+  <button onclick="checkPalindrome()">Check</button>
+  <div class="result" id="result"></div>
+
+  <script>
+    function isPalindrome(s) {
+      let left = 0;
+      let right = s.length - 1;
+      while (left < right) {
+        if (s[left] !== s[right]) return false;
+        left++;
+        right--;
+      }
+      return true;
+    }
+
+    function findLongestPalindrome(str) {
+      let maxLength = 0;
+      let longest = "";
+      for (let i = 0; i < str.length; i++) {
+        for (let j = i; j < str.length; j++) {
+          let substr = str.substring(i, j + 1);
+          if (isPalindrome(substr) && substr.length > maxLength) {
+            longest = substr;
+            maxLength = substr.length;
+          }
+        }
+      }
+      return longest;
+    }
+
+    function checkPalindrome() {
+      const input = document.getElementById("inputString").value;
+      const resultDiv = document.getElementById("result");
+
+      if (input.trim() === "") {
+        resultDiv.textContent = "Please enter a valid string.";
+        return;
+      }
+
+      if (isPalindrome(input)) {
+        resultDiv.textContent = "true";
+      } else {
+        const longest = findLongestPalindrome(input);
+        resultDiv.textContent = "Longest palindromic substring: " + longest;
+      }
+    }
+  </script>
+
+</body>
+</html>

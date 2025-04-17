@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Condition Evaluation</title>
+  
+</head>
+<body>
+
+  <h1>Condition Evaluation</h1>
+
+  <script>
+  
+    function evaluateConditions(obj) {
+      let results = ""; 
+      if (obj.age > 18 && obj.hasLicense) {
+        results += "Eligible to drive\n"; 
+      }
+
+      if (obj.temperature > 30 || obj.humidity > 70) {
+        results += "Warning: High discomfort level\n";
+      }
+      
+      if ((obj.role === "admin" || obj.role === "editor") && obj.isActive) {
+        results += "Access granted\n";
+      }
+
+      if (obj.score >= 90) {
+        results += "Outstanding performance\n";
+      }
+
+      if (!obj.isActive) {
+        results += "Account is inactive\n";
+      }
+
+      if (obj.temperature <= 0) {
+        results += "Warning: Freezing weather\n";
+      }
+
+      if (results === "") {
+        results = "Valid conditions not met"; 
+      }
+
+      return results;
+    }
+
+    const obj = {
+      age: 23,
+      hasLicense: true,
+      temperature: 20,
+      humidity: 70,
+      role: "editor",
+      isActive: false,
+      score: 92
+    };
+
+    console.log(evaluateConditions(obj)); 
+  </script>
+
+</body>
+</html>

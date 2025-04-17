@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    
+    
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .usd {
+      margin: 10px 0;
+      font-size: 18px;
+      color: red;
+    }
+    .eur {
+      margin: 10px 0;
+      font-size: 18px;
+      color: rgb(64, 177, 222);
+    }
+    .inr {
+      margin: 10px 0;
+      font-size: 18px;
+      color:black;
+    }
+  
+  </style>
+</head>
+<body>
+  <div class="usd"></div>
+  <div class="eur"></div>
+  <div class="inr"></div>
+
+  <script>
+  
+    function formatCurrency(amount, currencyCode) {
+      return new Intl.NumberFormat('en', {
+        style: 'currency',
+        currency: currencyCode,
+        currencyDisplay: 'symbol',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+    }
+
+    document.querySelector('.usd').textContent = "USD: " + formatCurrency(1234567.89, 'USD');
+    document.querySelector('.eur').textContent = "EUR: " + formatCurrency(1234567.89, 'EUR');
+    document.querySelector('.inr').textContent = "INR: " + formatCurrency(1234567.89, 'INR');
+  </script>
+
+</body>
+</html>
