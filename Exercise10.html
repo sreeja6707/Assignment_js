@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaction Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    input, select, button {
+      margin: 5px;
+      padding: 8px;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f8ff;
+      border-radius: 5px;
+      width: 320px;
+    }
+
+    .transaction-list {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Enter a Transaction</h2>
+
+  <!-- Input Form -->
+  <form id="transactionForm">
+    <label>Type:
+      <select id="type">
+        <option value="deposit">Deposit</option>
+        <option value="withdrawal">Withdrawal</option>
+      </select>
+    </label>
+    <label>Amount:
+      <input type="number" id="amount" required min="1">
+    </label>
+    <button type="submit">Add Transaction</button>
+  </form>
+
+  <!-- Output Summary -->
+  <div class="output" id="output">
+    <strong>Final Balance:</strong> ₹0<br>
+    <strong>Total Deposits:</strong> ₹0<br>
+    <strong>Total Withdrawals:</strong> ₹0
+  </div>
+
+  <!-- Transaction History -->
+  <div class="transaction-list" id="transactionList">
+    <h3>Transactions:</h3>
+    <ul id="transactions"></ul>
+  </div>
+
+  <script>
+    const transactions = [];
+
+    // Handle form submission
+    document.getElementById('transactionForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from reloading the page
+
+      const type = document.getElementById('type').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+
+      if (amount <= 0 || isNaN(amount)) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      // Add new transaction
+      transactions.push({ type, amount });
+
+      // Update the page
+      updateSummary();
+      updateTransactionList();
+
+      // Clear input
+      document.getElementById('amount').value = '';
+    });
+
+    function updateSummary() {
+      let finalBalance = 0;
+      let totalDeposits = 0;
+      let totalWithdrawals = 0;
+
+      for (let transaction of transactions) {
+        if (transaction.type === 'deposit') {
+          finalBalance += transaction.amount;
+          totalDeposits += transaction.amount;
+        } else if (transaction.type === 'withdrawal') {
+          finalBalance -= transaction.amount;
+          totalWithdrawals += transaction.amount;
+        }
+      }
+
+      // Display the results
+      document.getElementById('output').innerHTML = `
+        <strong>Final Balance:</strong> ₹${finalBalance} <br>
+        <strong>Total Deposits:</strong> ₹${totalDeposits} <br>
+        <strong>Total Withdrawals:</strong> ₹${totalWithdrawals}
+      `;
+    }
+
+    function updateTransactionList() {
+      const list = document.getElementById('transactions');
+      list.innerHTML = ''; // Clear list first
+
+      transactions.forEach((t, index) => {
+        const item = document.createElement('li');
+        item.textContent = `${index + 1}. ${t.type.toUpperCase()} of ₹${t.amount}`;
+        list.appendChild(item);
+      });
+    }
+  </script>
+
+</body>
+</html>
